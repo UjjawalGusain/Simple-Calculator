@@ -78,15 +78,19 @@ var bottomDisplayNumbers = "";
 buttonsArr.forEach((button) => {
     button.addEventListener('click', function displayNumbers(e, button){
 
-        if(e.target.textContent === 'AC')
+        if(e.target.textContent === 'AC' || (e.target.textContent === 'Del' && bottomDisplay.textContent.length === 1))
         {
             bottomDisplayNumbers  = '';
             bottomDisplay.textContent = '0';
             return;
         }
-        if(e.target.textContent === 'Del')
+        else if(e.target.textContent === 'Del')
         {
-            bottomDisplay.textContent.slice(0, bottomDisplay.textContent.length - 2);
+            if(bottomDisplay.textContent === '0')
+                return;
+                
+            bottomDisplayNumbers =  bottomDisplayNumbers.slice(0, bottomDisplayNumbers.length - 1);
+            bottomDisplay.textContent = bottomDisplayNumbers;
             return;
         }
 
