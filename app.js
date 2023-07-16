@@ -10,8 +10,8 @@ let seven = document.querySelector(".seven");
 let eight = document.querySelector(".eight");
 let nine = document.querySelector(".nine");
 let zero = document.querySelector(".zero");
-let multiply = document.querySelector(".multiply");
-let divide = document.querySelector(".divide");
+let multiply_button = document.querySelector(".multiply");
+let divide_button = document.querySelector(".divide");
 let plus = document.querySelector(".plus");
 let minus = document.querySelector(".minus");
 let decimal = document.querySelector(".decimal");
@@ -20,6 +20,7 @@ let allClear = document.querySelector(".all-clear");
 
 let buttonsArr = Array.from(buttons);
 
+const bottomDisplay = document.querySelector('.bottom-display');
 // let buttons = {
 // one : 1,
 // two : 2,
@@ -41,4 +42,61 @@ let buttonsArr = Array.from(buttons);
 // allClear : document.querySelector(".all-clear"),
 // }
 
+// buttonsArr.sort((a, b) => a>b? 1:-1);
 
+function calculate(first, operator, second){
+    if(operator === '+')
+    {
+        (first, second) => first + second;
+    }
+    else if(operator === '-')
+    {
+        (first, second) => first - second;
+    }
+    else if(operator === '/')
+    {
+        (first, second) => {
+            if(second == 0)
+                return NaN;
+            return first/second;
+        };
+    }
+    else if(operator === 'x')
+    {
+        (first, second) => first * second;
+    }
+}
+
+var bottomDisplayNumbers = "";
+
+// const NumsOperators = buttonsArr.filter((button) => {
+//     if(button.textContent === "AC" || button.textContent === "=" ||button.textContent === "Del")
+//         return false;
+//     return true;
+// });
+
+buttonsArr.forEach((button) => {
+    button.addEventListener('click', function displayNumbers(e, button){
+
+        if(e.target.textContent === 'AC')
+        {
+            bottomDisplayNumbers  = '';
+            bottomDisplay.textContent = '0';
+            return;
+        }
+        if(e.target.textContent === 'Del')
+        {
+            bottomDisplay.textContent.slice(0, bottomDisplay.textContent.length - 2);
+            return;
+        }
+
+
+        bottomDisplayNumbers += e.target.textContent;
+        bottomDisplay.textContent = bottomDisplayNumbers;
+    })});
+
+
+// function displayNumbers(e, button){
+//     // if(button.class)
+//     console.log(e);
+// }

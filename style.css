@@ -42,24 +42,38 @@ body{
     flex: 1;
 }
 
+.display{
+    display: flex;
+    flex-direction: column;
+    border: #563f46 5px solid;
+    justify-content: end;
+    align-items: flex-end;
+    width: 471px;
+    height:13rem;
+    /* padding: 80px; */
+    background-color: #393846;
+    /* font-size:4rem; */
+    overflow-x: hidden;
+}
+
+.upper-display{
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    color: white;
+}
+
+.bottom-display{
+    font-size: 5rem;
+    color: whitesmoke;
+}
+
+
 .buttons:hover{
     transform: scale(1.05);
 }
 
 .buttons.del, .buttons.all-clear{
     padding: 30px 90px;
-}
-
-.display{
-    display: flex;
-    border: #563f46 5px solid;
-    justify-content: end;
-    align-items: end;
-    width: 471px;
-    height:13rem;
-    /* padding: 80px; */
-    background-color: #393846;
-    font-size:4rem;
 }
 
 .buttons{
