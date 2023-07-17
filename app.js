@@ -14,66 +14,46 @@ let multiply_button = document.querySelector(".multiply");
 let divide_button = document.querySelector(".divide");
 let plus = document.querySelector(".plus");
 let minus = document.querySelector(".minus");
-let decimal = document.querySelector(".decimal");
+// let decimal = document.querySelector(".decimal"); Will be added once the program can run with decimals
 let del = document.querySelector(".del");
 let allClear = document.querySelector(".all-clear");
 
 let buttonsArr = Array.from(buttons);
 
+var bottomDisplayNumbers = "";
+var expressionArr;
 const bottomDisplay = document.querySelector('.bottom-display');
-// let buttons = {
-// one : 1,
-// two : 2,
-// three : 3,
-// four : 4,
-// five : 5,
-// six : 6,
-// seven : 7,
-// eight : 8,
-// nine : 9,
-// zero : 0,
-// equals 
-// multiply : document.querySelector(".multiply"),
-// divide : document.querySelector(".divide"),
-// plus : document.querySelector(".plus"),
-// minus : document.querySelector(".minus"),
-// decimal : document.querySelector(".decimal"),
-// del : document.querySelector(".del"),
-// allClear : document.querySelector(".all-clear"),
-// }
+const upperDisplay = document.querySelector('.upper-display');
+function calculateTwoNumbers(first, operator, second){
 
-// buttonsArr.sort((a, b) => a>b? 1:-1);
-
-function calculate(first, operator, second){
+    first = Number.parseInt(first);
+    second = Number.parseInt(second);
+    let result;
     if(operator === '+')
     {
-        (first, second) => first + second;
+        result = first + second;
     }
     else if(operator === '-')
     {
-        (first, second) => first - second;
+        result = first - second
     }
     else if(operator === '/')
     {
-        (first, second) => {
             if(second == 0)
-                return NaN;
-            return first/second;
-        };
+            {
+                result = NaN;
+                return;
+            }
+            result = first/second;
     }
-    else if(operator === 'x')
+    else if(operator === '*')
     {
-        (first, second) => first * second;
+        result = first * second
     }
+    return result;
 }
 
-var bottomDisplayNumbers = "";
 
-// const NumsOperators = buttonsArr.filter((button) => {
-//     if(button.textContent === "AC" || button.textContent === "=" ||button.textContent === "Del")
-//         return false;
-//     return true;
-// });
 
 buttonsArr.forEach((button) => {
     button.addEventListener('click', function displayNumbers(e, button){
@@ -82,6 +62,7 @@ buttonsArr.forEach((button) => {
         {
             bottomDisplayNumbers  = '';
             bottomDisplay.textContent = '0';
+            upperDisplay.textContent = '0';
             return;
         }
         else if(e.target.textContent === 'Del')
@@ -93,6 +74,11 @@ buttonsArr.forEach((button) => {
             bottomDisplay.textContent = bottomDisplayNumbers;
             return;
         }
+        else if(e.target.textContent === '=')
+        {
+            calculate(bottomDisplay.textContent);
+            return;
+        }
 
 
         bottomDisplayNumbers += e.target.textContent;
@@ -100,7 +86,62 @@ buttonsArr.forEach((button) => {
     })});
 
 
-// function displayNumbers(e, button){
-//     // if(button.class)
-//     console.log(e);
-// }
+function calculate(operationString){
+    
+    let result = 0;
+    let numberArray = operationString.split("+").join(",").split("-").join(",").split("/").join(",").
+                           split("*").join(",").split(",");
+    numberArray = numberArray.filter((number => Number.isInteger(Number.parseInt(number))));
+
+    console.log(operationString);
+ 
+    let operatorArray = splitMulti(operationString);
+
+
+    if(operatorArray.length >= numberArray.length)
+    {
+        bottomDisplayNumbers  = '';
+        bottomDisplay.textContent = 'NaN';
+        return;
+    }
+
+    if(numberArray.length == 1)
+    {
+        upperDisplay.textContent = numberArray[0];
+        return;
+    }
+
+    expressionCalculation(numberArray, operatorArray);
+
+}
+
+function expressionCalculation(numberArray, operatorArray){
+
+    let result = 0;
+    result = calculateTwoNumbers(numberArray[0], operatorArray[0], numberArray[1]);
+    console.log(numberArray);
+    console.log(operatorArray);
+    console.log(result);
+    for(let i = 1; i < numberArray.length-1; i++)
+    {
+        let val = calculateTwoNumbers(result, operatorArray[i], numberArray[i+1]);
+        result = val;
+    }
+
+    result = result.toString();
+    bottomDisplayNumbers  = '';
+    bottomDisplay.textContent = '0';
+    upperDisplay.textContent = result;
+
+}
+
+//I know the implementation of this function sucks and I am sorry for that
+function splitMulti(string){
+    string = string.split("0").join(",").split("1").join(",").split("2").join(",").split("3").join(",").
+    split("4").join(",").split("5").join(",").split("6").join(",").split("7").join(",").split("8").
+    join(",").split("9").join(",").split(",");
+
+    string = string.filter((operator) => operator === '+' ||operator === '-' ||operator === '*' ||operator === '/' );
+
+    return string;    
+}

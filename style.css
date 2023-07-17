@@ -90,3 +90,11 @@ body{
     padding: 2px;
     background-color: #c8c3cc;
 }
+
+
+
+
+/* will be added once the program can run with decimals */
+.buttons-container.decimal-row .buttons{
+    padding-left: 90px ;
+}
