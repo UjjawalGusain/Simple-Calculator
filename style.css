@@ -94,7 +94,3 @@ body{
 
 
 
-/* will be removed once the program can run with decimals */
-.buttons-container.decimal-row .buttons{
-    padding-left: 90px ;
-}

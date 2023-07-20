@@ -14,7 +14,7 @@ let multiply_button = document.querySelector(".multiply");
 let divide_button = document.querySelector(".divide");
 let plus = document.querySelector(".plus");
 let minus = document.querySelector(".minus");
-// let decimal = document.querySelector(".decimal"); Will be added once the program can run with decimals
+let decimal = document.querySelector(".decimal"); 
 let del = document.querySelector(".del");
 let allClear = document.querySelector(".all-clear");
 
@@ -26,8 +26,8 @@ const bottomDisplay = document.querySelector('.bottom-display');
 const upperDisplay = document.querySelector('.upper-display');
 function calculateTwoNumbers(first, operator, second){
 
-    first = Number.parseInt(first);
-    second = Number.parseInt(second);
+    first = parseFloat(first);
+    second = parseFloat(second);
     let result;
     if(operator === '+')
     {
